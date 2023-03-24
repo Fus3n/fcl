@@ -1,0 +1,6 @@
+name = input("Enter your name: ")
+
+if (
+    cmp(name, "Asif"),
+    log("You are the admin")
+)
