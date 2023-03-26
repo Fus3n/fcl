@@ -1,5 +1,7 @@
 
-<img src="./fcl-logo-512x512.png" class="center"/>
+<p align="center">
+    <img src="./fcl-logo-512x512.png" width="28%"/>
+</p>
 
 # The FCL Programming Language 
 
@@ -77,14 +79,3 @@ for (i, 1, 101, (
 - [YouTube](https://www.youtube.com/@FlinCode)
 - [Twitter](https://twitter.com/fus3_n)
 - [Reddit](https://www.reddit.com/user/FUS3N)
-
-
-
-<style>
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 25%;
-}
-</style>
