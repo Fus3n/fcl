@@ -1,4 +1,4 @@
-from lexer import Lexer, Type, Token
+from .lexer import Lexer, Type, Token
 
 
 class Node:
@@ -63,6 +63,17 @@ class NumberNode(Node):
     
     def is_true(self) -> bool:
         return self.value != 0
+    
+class ListNode(Node):
+    def __init__(self, values: list[Node], tok: Token):
+        super().__init__(tok)
+        self.values = values
+
+    def __repr__(self):
+        return str(self.value)
+    
+    def is_true(self) -> bool:
+        return len(self.value) != 0
 
 class VarAccessNode(Node):
     def __init__(self, var_name, tok: Token):
@@ -81,7 +92,7 @@ class BoolNode(Node):
         return self.value
     
     def is_true(self) -> bool:
-        return True if self.value == "true" else False
+        return (True if self.value == "true" else False)
     
 class ElifNode(Node):
     def __init__(self, cond: Node, expr, tok: Token):
@@ -90,7 +101,7 @@ class ElifNode(Node):
         self.expr = expr
 
     def __repr__(self):
-        return self.value
+        return f"ElifNode<{hex(id(self))}>({self.cond} ---- {self.expr})"
     
     def is_true(self) -> bool:
         return self.cond.is_true()
@@ -151,9 +162,12 @@ class Parser:
             args.append(self.expr())
             if self.current_token.tt == Type.Comma:
                 self.eat(Type.Comma)
+            elif self.current_token.tt != Type.RightParen:
+                print(f"Expected comma or ')' after each argument at {self.current_token}")
+                exit(1)
         self.eat(Type.RightParen)
         return FunctionCallNode(func_name, args, curr_tok)
-
+    
     def expr(self):
         curr_tok = self.current_token
         if self.current_token.tt == Type.String:
@@ -171,11 +185,15 @@ class Parser:
         elif self.current_token.tt == Type.Identifier:
             if self.peek().tt == Type.LeftParen:
                 return self.function_call()
+            elif self.peek().tt == Type.Equal:
+                return self.assignment_statement()
             var_name = self.current_token.value
             self.eat(Type.Identifier)
             return VarAccessNode(var_name, curr_tok)
         elif self.current_token.tt == Type.LeftParen:
             return self.block()
+        elif self.current_token.tt == Type.LeftSquareBracket:
+            return self.list_expr()
         else:
             print(f"Invalid Expression: {self.current_token}")
             exit(1)
@@ -192,6 +210,20 @@ class Parser:
         self.eat(Type.RightParen)
 
         return BlockNode(statements, curr_tok)
+    
+    def list_expr(self):
+        curr_tok = self.current_token
+        self.eat(Type.LeftSquareBracket)
+        items = []
+        while self.current_token.tt != Type.RightSquareBracket:
+            items.append(self.expr())
+            if self.current_token.tt == Type.Comma:
+                self.eat(Type.Comma)
+            elif self.current_token.tt != Type.RightSquareBracket:
+                print(f"Expected comma or ']' after list item at {self.current_token}")
+                exit(1)
+        self.eat(Type.RightSquareBracket)
+        return ListNode(items, curr_tok)
 
     def eat(self, tt: Type):
         if self.current_token.tt == tt:

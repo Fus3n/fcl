@@ -1,0 +1,83 @@
+#  -- printing --
+log("This is how you print!")
+# log takes an undefined amount of arguments
+log("you can", "put", "as much", "arguments", "as you want") # these will be space separated
+
+# -- variables & types--
+var_name = "hello"
+var_name2 = 23
+# you can also use the var function, it takes an identifier and a value
+var(this_is_an_identifier, 340299.23)
+# fcl also supports lists
+list1 = [1, 2, 3, 4, 5, 6, 7]
+# to index a value we use index function
+second_value = index(list1, 1)
+
+# -- arithmetic --
+# we of course use functions here too :)
+# here are all the supported ones
+add(5, 5)
+sub(5, 5)
+div(5, 5)
+mul(5, 5)
+mod(5, 5)
+
+
+# -- loops -- 
+for (i, 0, 10, (
+    log("Hello this is from inside the for loop!"), # comma is optional
+    log("Our Current iteration is", i)
+    log("Ending the iteration.")
+)) # for loop signature: for(identifier, start_rand: integer, end_range: integer, expression) we use () for multiline expression
+# only for loop is supported for now
+
+# -- condition -- 
+# fcl also supports boolean ex: true or false
+# we can use the if function signature: 
+# if(condition expression, true expression, false expression)
+# but we can add else if's using the elif function for that the signature would be:
+# if(condition expression, true expression, elif(cond expr, true expr) ..., else expression )
+if (
+    gt(2, 5),
+    log("2 is greater than 5"),
+    elif(gt(5, 2), log("5 is greater than 2 :)")), # elif expression
+    elif(eq(5, 2), log("5 is equal to 2?")), # elif expression
+    log("huh...") # else expression
+)
+# or simply
+if (
+    true,
+    log("if true is true then true"),
+    log("else false"),
+)
+# we can check mutilple expression by using "and" and "or" function
+
+if (and(5, 0), log("true"), log("false"))
+
+# to compare values we use functions like eq, neq, gt, gte, lt, lte
+log("5 is equal to 2", eq(5, 2))
+log("5 is not equal to 2", neq(5, 2))
+log("5 is greater than 2", gt(5, 2))
+log("5 is less than 2", lt(5, 2))
+log("5 is greater or and equal to 2", gte(5, 2))
+log("5 is less than or equal to 2", lte(5, 2))
+
+
+# other builtin functions
+inp = input("Take input: ")
+to_str = str(5) # convert to string
+index(inp, 0) # index value from list or string
+len(inp) # length of string or list
+
+
+# FizzBuzz implementation in FCL
+for (i, 1, 101, (
+    if (
+        and(eq(mod(i, 3), 0), eq(mod(i, 5), 0)), 
+        log("FizzBuzz"),
+        elif(eq(mod(i, 3), 0), log("Fizz")),
+        elif(eq(mod(i, 5), 0), log("Buzz")),
+        log(i)
+    ),
+))
+

@@ -1,0 +1,78 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "FCL Programming Language",
+    "patterns": [
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#strings-double"
+        },
+		{
+            "include": "#strings-single"
+        },
+		{
+			"include": "#builtins"
+		},
+
+        {
+            "name": "constant.numeric.fcl",
+            "match": "\\b[0-9]+(\\.[0-9]+)?\\b"
+        },
+        {
+            "name": "keyword.operator.fcl",
+            "match": "\\+|-|\\="
+        },
+        {
+            "name": "comment.fcl",
+            "begin": "#",
+            "end": "\n"
+        }
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [
+				{
+					"name": "constant.language.fcl",
+					"match": "\\b(true|false)\\b"
+				},
+                {
+                    "name": "keyword.control.fcl",
+                    "match": "\\b(while|let)\\b"
+                }
+            ]
+        },
+		"builtins": {
+			"patterns": [
+				{
+					"name": "support.function.fcl",
+					"match": "\\b(for|if|log|input|eq|neq|gt|gte|lt|lte|str|add|sub|div|mul|pow|mod|var|elif|index|len|and|or)\\b"
+				}
+			]
+		},
+
+		"strings-double": {
+			"name": "string.quoted.double.fcl",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.fcl",
+					"match": "\\\\."
+				}
+			]
+		},
+		"strings-single": {
+			"name": "string.quoted.single.fcl",
+			"begin": "'",
+			"end": "'",
+			"patterns": [
+				{
+					"name": "constant.character.escape.fcl",
+					"match": "\\\\."
+				}
+			]
+		}
+    },
+    "scopeName": "source.fcl"
+}

@@ -1,0 +1,65 @@
+# # This is a comment
+# name = "FUSEN"
+# # types
+# string = "hello" # string
+# integerd5 = 123 # number (integer)
+# float = 1334.2 # number (float)
+# boolean = true # boolean, and false
+# # built-in functions
+# log("Hello world") # log for printing messages take unlimited arguments, printed seprated by spaces
+# if (false,  
+#     log("it was true"),
+#     elif(false, log("it was false")),
+#     elif(true, (
+#         log("2nd elif triggered")
+#         log("with multiline")
+#     )),
+#     log("this is just else case")
+# ) # if function: if(cond, elif.. (optional), else_expr)
+# for(i, 0, 10, (
+#     log("Number", mul(i, 2)),
+# ),
+#     elif(false, log("it was false"))
+# )
+
+# if (neq(name, "Admin"), (
+#     log("Welcome Back!")
+#     log('You are "Admin"')
+# ))
+
+# a = [1, 2, 3, 4, 5, "hello world", ["name", "appertment"]]
+# log(index(index(a, 6), 0))
+
+# b = "hello world"
+# c = len(b)
+# for (i, 0, c, (
+#     val = index(b, i)
+#     if (eq(val, " "), (
+#         log("Found Space at", i)
+#     ))
+# ))
+
+# log("5 is equal to 2", eq(5, 2))
+# log("5 is not equal to 2", neq(5, 2))
+# log("5 is greater than 2", gt(5, 2))
+# log("5 is less than 2", lt(5, 2))
+# log("5 is greater than or equal to 2", gte(5, 2))
+# log("5 is less than or equal to 2", lte(5, 2))
+
+
+# #FizzBuzz implementation in FCL
+# for (i, 1, 101, (
+#     if (
+#         and(eq(mod(i, 3), 0), eq(mod(i, 5), 0)), 
+#         log("FizzBuzz"),
+#         elif(eq(mod(i, 3), 0), log("Fizz")),
+#         elif(eq(mod(i, 5), 0), log("Buzz")),
+#         log(i)
+#     ),
+# ))
+
+
+# for (i, add(5, 5), mul(5, 10),(
+#     log(i)
+# ))
+

@@ -1,4 +1,5 @@
 from enum import Enum, auto
+import sys
 
 class Type(Enum):
     String = auto()
@@ -7,6 +8,8 @@ class Type(Enum):
     Identifier = auto()
     LeftParen = auto()
     RightParen = auto()
+    LeftSquareBracket = auto()
+    RightSquareBracket = auto()
     Equal = auto()
     Comma = auto()
     Void = auto()
@@ -47,7 +50,7 @@ class Token:
             self.end_loc = end_loc
 
     def __repr__(self) -> str:
-        return f"{self.start_loc.file_path} {self.start_loc.line}:{self.start_loc.row}"
+        return f"{self.start_loc.file_path}:{self.start_loc.line}:{self.start_loc.row}"
 
     def __str__(self) -> str:
         return self.__repr__()
@@ -57,6 +60,7 @@ class Token:
             return self.tt == tt and self.value == value
         else:
             return self.tt == tt
+
 
 class Lexer:
     
@@ -102,23 +106,29 @@ class Lexer:
         while self.valid():
             if self.char.isspace():
                 self.advance()
-                continue
             elif self.iss("="):
                 self.append(Token(Type.Equal, self.char, self.loc.copy()))
                 self.advance()
-                continue
+            elif self.iss("#"):
+                self.advance()
+                while self.valid() and self.is_not("\n"):
+                    self.advance()
+                self.advance()
             elif self.iss("("):
                 self.append(Token(Type.LeftParen, self.char, self.loc.copy()))
                 self.advance()
-                continue
             elif self.iss(")"):
-                    self.append(Token(Type.RightParen, self.char, self.loc.copy()))
-                    self.advance()
-                    continue
+                self.append(Token(Type.RightParen, self.char, self.loc.copy()))
+                self.advance()
+            elif self.iss("["):
+                self.append(Token(Type.LeftSquareBracket, self.char, self.loc.copy()))
+                self.advance()
+            elif self.iss("]"):
+                self.append(Token(Type.RightSquareBracket, self.char, self.loc.copy()))
+                self.advance()
             elif self.iss(","):
-                    self.append(Token(Type.Comma, self.char, self.loc.copy()))
-                    self.advance()
-                    continue
+                self.append(Token(Type.Comma, self.char, self.loc.copy()))
+                self.advance()
             elif self.iss("'") or self.iss("\""):
                 self.parse_string()
             elif self.char.isdecimal():
@@ -130,7 +140,7 @@ class Lexer:
                 exit(1)
 
         self.tokens.append(Token(Type.Eof, "EOF", self.loc))
-    
+
     def parse_string(self):
         quote = self.char
         start_loc = self.loc.copy()
@@ -144,7 +154,7 @@ class Lexer:
         
         if self.is_not(quote):
             print(f"Invalid Syntax, Expected \"'\" or \"'\", at line {start_loc.line}")
-            exit(1)
+            sys.exit(1)
         self.advance()
 
         self.append(Token(Type.String, parsed, start_loc, self.loc.copy()))

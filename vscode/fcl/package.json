@@ -1,0 +1,29 @@
+{
+  "name": "fcl",
+  "displayName": "fcl-language-support",
+  "description": "Language Support for FCL",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "fcl",
+      "aliases": ["FCL Programming Language", "fcl"],
+      "extensions": [".fcl"],
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./images/fcl-logo.png", 
+        "dark": "./images/fcl-logo.png" 
+      }
+    }],
+    "grammars": [{
+      "language": "fcl",
+      "scopeName": "source.fcl",
+      "path": "./syntaxes/fcl.tmLanguage.json"
+    }]
+  }
+}
