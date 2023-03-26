@@ -9,7 +9,7 @@
 
 **FCL** has a simple syntax with a minimal set of keywords, making it easy for beginners to learn. However, its reliance on functions makes it a powerful tool for experienced developers as well. FCL also supports dynamic typing, making it flexible for a wide range of use cases.
 
-While **FCL** is not a serious project, it serves as an interesting experiment in extreme functional programming. Give it a try and see how functions can be used in unexpected ways! (idk if it's that extreme tho)
+While **FCL** might not turn out to be a serious project, it serves as an interesting experiment in extreme functional programming. Give it a try and see how functions can be used in unexpected ways! (idk if it's that extreme tho)
 
 This description was generted using ChatGPT 💀, quotes added by me ;)
 
