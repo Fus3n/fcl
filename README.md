@@ -85,6 +85,6 @@ for (i, 1, 101, (
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 30%;
+  width: 25%;
 }
 </style>
